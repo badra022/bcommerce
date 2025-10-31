@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+out/
+.next/ # For Next.js projects
+.nuxt/ # For Nuxt.js projects
+public/build/ # Common for some frameworks
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor/IDE specific files
+.vscode/ # Visual Studio Code settings
+.idea/ # IntelliJ IDEA settings
+*.sublime-project
+*.sublime-workspace
+.DS_Store # macOS specific
+Thumbs.db # Windows specific
+
+# Test coverage reports
+coverage/
+
+# Misc
+*.swp # Vim swap files
+*.bak # Backup files
+
+README-template.md
+mentor-README.md
+style-guide.md
+
+design/

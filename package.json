@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "lite-server --baseDir=\"./dist\"",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "lite-server": "^2.6.1",
+    "tailwindcss": "^4.1.16",
+    "typescript": "^5.9.3"
+  }
+}

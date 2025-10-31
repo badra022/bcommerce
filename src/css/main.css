@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: hsl(26, 100%, 55%);
+  --color-secondary: hsl(25, 100%, 94%);
+  --color-blue: hsl(220, 13%, 13%);
+  --color-neutral-dark-grayish-blue: hsl(219, 9%, 45%);
+  --color-neutral-grayish-blue: hsl(220, 14%, 75%);
+  --color-neutral-light-grayish-blue: hsl(223, 64%, 98%);
+  --color-neutral-white: hsl(0, 0%, 100%);
+  --color-neutral-black: hsl(0, 0%, 0%);
+  --breakpoint-mobile: 375px;
+  --breakpoint-desktop: 1440px;
+  --font-primary: 'Kumbh Sans', sans-serif, normal, 400;
+  --font-primary-bold: 'Kumbh Sans', sans-serif, normal, 700;
+}
+
+#navbar {
+  @apply h-24 w-9/12 fixed mx-24 flex flex-row place-content-between border-b-neutral-light-grayish-blue border-b-2 items-center;
+}
+
+#nav-list {
+  @apply flex desktop:flex-row items-center;
+}
+
+#navbar-logo {
+  @apply h-4 object-cover pe-5;
+}
+
+#navbar-items {
+  @apply flex flex-row gap-x-5;
+}
+
+.navbar-item {
+  @apply inline-block h-24 text-center content-center hover:text-neutral-black text-neutral-grayish-blue cursor-pointer hover:border-b-primary hover:border-b-4 transition duration-300 ease-in-out;
+}
+
+#account-container {
+  @apply flex flex-row items-center gap-x-8;
+}
+
+#cart-button-container {
+  @apply relative cursor-pointer;
+}
+
+#cart-button {
+  @apply content-center;
+}
+
+#cart-count {
+  @apply absolute -top-2 -right-2 px-2 rounded-md bg-primary text-white text-xs;
+}
+
+#account-image-container {
+  @apply cursor-pointer w-10 content-center border-2 border-transparent rounded-full hover:border-primary;
+}
+
+#cart-container {
+  @apply relative;
+}
+
+#cart {
+  @apply absolute top-12 -left-32 w-72 shadow-2xl bg-neutral-white!
+}
+
+#cart-header {
+  @apply ml-5 mb-4 text-sm font-primary-bold font-bold inline-block w-58 py-5 border-b-neutral-light-grayish-blue border-b-2
+}
+
+.cart-items {
+  @apply flex flex-col gap-4 mx-4 min-h-36 items-center justify-center;
+}
+
+.cart-item-container {
+  @apply flex flex-row items-center gap-4 hover:outline-3 outline-offset-4 rounded-md outline-primary;
+}
+
+.cart-item-thumbnail {
+  @apply w-12 rounded-md cursor-pointer;
+}
+
+.cart-item-details {
+  @apply flex flex-col gap-1 text-xs text-neutral-dark-grayish-blue;
+}
+
+.price-and-quantity {
+  @apply flex flex-row gap-2;
+}
+
+.cart-item-total-price {
+  @apply font-bold text-neutral-black;
+}
+
+.cart-item-delete-button {
+  @apply cursor-pointer w-5 h-5 place-items-center fill-neutral-grayish-blue hover:fill-primary;
+}
+
+.hide {
+  @apply hidden;
+}
+
+#cart-checkout-button {
+  @apply inline-block w-64 h-12 bg-primary focus:text-white font-medium capitalize rounded-lg m-4 focus:outline-2 outline-offset-2 outline-primary leading-10 hover:bg-primary/50 transition duration-300 ease-in-out;
+}
+
+#empty-container {
+  @apply capitalize inline-block w-full h-full text-center font-medium text-neutral-dark-grayish-blue
+}
