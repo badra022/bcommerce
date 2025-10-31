@@ -21,9 +21,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run the 3 build commands
+    - name: build the site
       run: |
-        npx @tailwindcss/cli -i ./src/css/main.css -o ./dist/main.css
         npm run build
 
     - name: Deploy to GitHub Pages

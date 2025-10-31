@@ -1,11 +1,12 @@
 {
   "scripts": {
     "start": "lite-server --baseDir=\"./dist\"",
-    "build": "tsc",
+    "build": "tsc && npx @tailwindcss/cli -i src/css/main.css -o dist/main.css && cpx src/index.html dist/ && cpx src/static/**/* dist/static",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.16",
+    "cpx": "^1.5.0",
     "lite-server": "^2.6.1",
     "tailwindcss": "^4.1.16",
     "typescript": "^5.9.3"
