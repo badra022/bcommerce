@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Task Manager</title>
+        <meta name="description" content>
+        <meta name="viewport" content="width=100vh, initial-scale=1">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <nav class="navbar-container" id="navbar">
+            <section id="nav-list">
+                <img id="navbar-logo" src="static/logo.svg" alt>
+                <ul id="navbar-items">
+                    <li class="navbar-item">Collections</li>
+                    <li class="navbar-item">Men</li>
+                    <li class="navbar-item">Women</li>
+                    <li class="navbar-item">About</li>
+                    <li class="navbar-item">Contact</li>
+                </ul>
+            </section>
+
+            <section id="account-container">
+                <div id="cart-container">
+                    <div id="cart-button-container">
+                        <img id="cart-button" src="static/icon-cart.svg"
+                            alt="cart button">
+                        <span id="cart-count">3</span>
+                    </div>
+                    <div id="cart" class="">
+                        <div id="cart-header">Cart</div>
+                        <div class="cart-items">
+                            <div id="empty-container">your cart is empty.</div>
+                            <div class="cart-item-container">
+                                <img class="cart-item-thumbnail"
+                                    src="static/image-product-1-thumbnail.jpg"
+                                    alt="item image">
+                                <div class="cart-item-details">
+                                    <div class="cart-item-description">Fall
+                                        Limited
+                                        Edition Sneakers</div>
+                                    <div class="price-and-quantity">
+                                        <div
+                                            class="cart-item-quantity-x-price"><span id="unit-price">$125.00</span>
+                                            x <span id="item-quantity">3</span> </div>
+                                        <div
+                                            class="cart-item-total-price"><span id="total-item-price">$375.00</span></div>
+                                    </div>
+
+                                </div>
+                                <svg class="cart-item-delete-button">
+                                    <path d="M0 2.625V1.75C0 1.334.334 1 .75 1h3.5l.294-.584A.741.741 0 0 1 5.213 0h3.571a.75.75 0 0 1 .672.416L9.75 1h3.5c.416 0 .75.334.75.75v.875a.376.376 0 0 1-.375.375H.375A.376.376 0 0 1 0 2.625Zm13 1.75V14.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 14.5V4.375C1 4.169 1.169 4 1.375 4h11.25c.206 0 .375.169.375.375ZM4.5 6.5c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Z" id="a"/><use fill="#C3CAD9" fill-rule="nonzero"/>
+                                </svg>
+                            </div>
+
+                            <div class="cart-item-container">
+                                <img class="cart-item-thumbnail"
+                                    src="static/image-product-1-thumbnail.jpg"
+                                    alt="item image">
+                                <div class="cart-item-details">
+                                    <div class="cart-item-description">Fall
+                                        Limited
+                                        Edition Sneakers</div>
+                                    <div class="price-and-quantity">
+                                        <div
+                                            class="cart-item-quantity-x-price"><span id="unit-price">$125.00</span>
+                                            x <span id="item-quantity">3</span> </div>
+                                        <div
+                                            class="cart-item-total-price"><span id="total-item-price">$375.00</span></div>
+                                    </div>
+
+                                </div>
+                                <svg class="cart-item-delete-button">
+                                    <path d="M0 2.625V1.75C0 1.334.334 1 .75 1h3.5l.294-.584A.741.741 0 0 1 5.213 0h3.571a.75.75 0 0 1 .672.416L9.75 1h3.5c.416 0 .75.334.75.75v.875a.376.376 0 0 1-.375.375H.375A.376.376 0 0 1 0 2.625Zm13 1.75V14.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 14.5V4.375C1 4.169 1.169 4 1.375 4h11.25c.206 0 .375.169.375.375ZM4.5 6.5c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Zm3 0c0-.275-.225-.5-.5-.5s-.5.225-.5.5v7c0 .275.225.5.5.5s.5-.225.5-.5v-7Z" id="a"/><use fill="#C3CAD9" fill-rule="nonzero"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <button id="cart-checkout-button">Checkout</button>
+                    </div>
+                </div>
+                <img id="account-image-container" src="static/image-avatar.png"
+                    alt="profile photo" id="account-image">
+            </section>
+        </nav>
+
+        <!-- <section id="product-details">
+            <div id="product-images">
+                <div class="selected-image"><img src alt="selected image"></div>
+                <ul id="product-images-list">
+                    <li class="product-image"><img src alt="image 1"></li>
+                    <li class="product-image"><img src alt="image 2"></li>
+                    <li class="product-image"><img src alt="image 3"></li>
+                    <li class="product-image"><img src alt="image 4"></li>
+                </ul>
+            </div>
+            <div id="product-details">
+                <h3 id="product-seller">sneaker company</h3>
+                <h1 id="product-name">Fall Limited Edition Sneakers</h1>
+                <p id="product-description">Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Sint porro sit, a officiis ut
+                    molestiae esse quisquam expedita harum nobis error
+                    asperiores tempora voluptatem accusamus, necessitatibus
+                    accusantium! Nostrum, quisquam nemo!</p>
+                <div id="product-pricing">
+                    <span id="product-price">$125.00</span>
+                    <div id="product-discount">50%</div>
+                </div>
+                <div id="old-price">$250.00</div>
+            </div>
+
+            <div id="product-purchase">
+                <div id="quantity-selector">
+                    <button id="decrease-quantity">-</button>
+                    <span id="selected-quantity">0</span>
+                    <button id="increase-quantity">+</button>
+                </div>
+                <button id="add-to-cart-button">
+                    <div class="cart-icon"></div>
+                    <span>Add to cart</span>
+                </button>
+            </section> -->
+
+        <div id="root"></div>
+        <script type="module" src="scripts/index.js" async defer></script>
+    </body>
+</html>
