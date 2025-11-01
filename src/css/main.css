@@ -1,6 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Kumbh Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "YOPQ" 300;
+}
+
+@font-face {
+  font-family: "bold";
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "YOPQ" 300;
+    src: url('static/KumbhSans-VariableFont_YOPQ,wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "regular";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "YOPQ" 300;
+    src: url('static/KumbhSans-VariableFont_YOPQ,wght.ttf') format('truetype');
+}
+
+
 @theme {
   --color-primary: hsl(26, 100%, 55%);
   --color-secondary: hsl(25, 100%, 94%);
@@ -11,15 +41,19 @@
   --color-neutral-white: hsl(0, 0%, 100%);
   --color-neutral-black: hsl(0, 0%, 0%);
   --breakpoint-*: initial;
-  --font-primary: 'Kumbh Sans', sans-serif, normal, 400;
-  --font-primary-bold: 'Kumbh Sans', sans-serif, normal, 700;
+  --font-primary: 'regular', sans-serif;
+  --font-primary-bold: 'bold', sans-serif;
 }
 
 @custom-variant desktop (@media (max-width: 1440px));
 @custom-variant mobile (@media (max-width: 800px));
 
+* {
+  @apply font-primary;
+}
+
 #navbar {
-  @apply h-24 mobile:h-16 mobile:w-11/12 w-9/12 fixed mx-24 mobile:mx-5 flex flex-row place-content-between border-b-neutral-light-grayish-blue border-b-2 items-center z-10;
+  @apply h-24 mobile:h-16 mobile:w-11/12 w-9/12 sticky mx-24 mobile:mx-5 flex flex-row place-content-between border-b-neutral-light-grayish-blue border-b-2 items-center z-10;
 }
 
 .navbar-container #dark-overlay {
@@ -128,4 +162,91 @@
 
 #empty-container {
   @apply capitalize inline-block w-full h-full text-center font-medium text-neutral-dark-grayish-blue
+}
+
+
+#product {
+  @apply m-24 mobile:m-0 flex flex-row mobile:flex-col items-center gap-14;
+}
+
+.selected-image {
+  @apply w-100 mobile:w-screen;
+}
+
+.selected-image > img {
+  @apply cursor-pointer rounded-lg hover:opacity-70 transition duration-200 ease-in-out;
+}
+
+#product-images-list {
+  @apply mx-0 flex flex-row gap-x-6 my-6 mobile:hidden;
+}
+.product-image {
+  @apply rounded-md border-2 border-transparent hover:border-primary cursor-pointer transition duration-200 ease-in-out;
+}
+.product-image > img {
+  @apply rounded-md hover:opacity-40 transition duration-200 ease-in-out;
+}
+
+#product-details {
+  @apply text-left p-4;
+}
+
+#product-seller {
+  @apply uppercase text-xs font-primary-bold text-neutral-dark-grayish-blue my-2;
+}
+
+#product-name {
+  @apply text-4xl mobile:text-2xl font-primary-bold  text-neutral-black mb-4;
+}
+
+#product-description {
+  @apply text-neutral-dark-grayish-blue my-6;
+}
+
+#product-pricing {
+  @apply flex flex-row items-center gap-6 my-6;
+}
+
+#product-price {
+  @apply text-3xl font-primary-bold;
+}
+
+#product-discount {
+  @apply bg-neutral-black text-neutral-white px-2 py-1 rounded-md font-primary-bold;
+}
+
+#old-price {
+  @apply text-neutral-dark-grayish-blue font-primary-bold font-bold line-through decoration-neutral-dark-grayish-blue/50;
+}
+
+#product-purchase {
+  @apply flex flex-row items-center gap-4 mobile:flex-col;
+}
+
+#quantity-selector {
+  @apply flex flex-row items-center bg-neutral-light-grayish-blue justify-between rounded-md mobile:w-full mobile:px-8;
+}
+
+#decrease-quantity {
+  @apply p-4 cursor-pointer hover:opacity-70 transition duration-200 ease-in-out;
+}
+
+#increase-quantity {
+  @apply p-4 cursor-pointer hover:opacity-70 transition duration-200 ease-in-out;
+}
+
+#selected-quantity {
+  @apply px-4 font-bold font-primary-bold;
+}
+
+#add-to-cart-button {
+  @apply my-8 flex flex-row items-center gap-4 bg-primary hover:bg-primary/70 min-w-64 mobile:w-full justify-center h-12 rounded-lg cursor-pointer transition duration-200 ease-in-out focus:outline-2 outline-primary outline-offset-2 mobile:shadow-2xl;
+}
+
+#add-to-cart-button .cart-icon {
+  @apply fill-neutral-black group-hover:fill-neutral-white transition duration-200 ease-in-out;
+}
+
+#add-to-cart-button span {
+  @apply text-neutral-black font-primary-bold group-hover:text-neutral-white transition duration-200 ease-in-out;
 }
