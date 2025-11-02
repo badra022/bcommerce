@@ -52,24 +52,43 @@
   @apply font-primary;
 }
 
-#navbar {
-  @apply h-24 mobile:h-16 mobile:w-11/12 w-9/12 sticky mx-24 mobile:mx-5 flex flex-row place-content-between border-b-neutral-light-grayish-blue border-b-2 items-center z-10;
+.focused-image {
+  @apply w-full h-full top-0 left-0;
 }
 
-.navbar-container #dark-overlay {
-  @apply bg-black/60 fixed top-0 w-full h-full z-40;
+.dark-overlay {
+  @apply bg-black/60 fixed top-0 w-full h-full z-20;
+}
+
+#image-careousel-overlay {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-100 mobile:w-11/12 rounded-lg z-50;
+}
+
+#image-careousel-overlay .opened-image {
+  @apply w-full rounded-lg;
+}
+
+#previous-image-button {
+  @apply absolute top-1/2 -left-6 transform -translate-y-1/2;
+}
+#next-image-button {
+  @apply absolute top-1/2 -right-6 transform -translate-y-1/2;
+}
+
+.carousel-icon {
+  @apply absolute w-11 h-12 cursor-pointer rounded-full bg-neutral-white hover:bg-neutral-white/70 p-3 z-50;
+}
+
+#navbar {
+  @apply h-24 mobile:h-16 mobile:w-11/12 w-9/12 sticky mx-24 mobile:mx-5 flex flex-row place-content-between border-b-neutral-light-grayish-blue border-b-2 items-center;
 }
 
 .hide {
-  @apply transition duration-200 ease-in-out scale-100;
-}
-
-#navbar-items.hide {
-  @apply hidden;
+  @apply transition duration-200 ease-in-out scale-0;
 }
 
 #nav-list {
-  @apply flex flex-row items-center relative z-50;
+  @apply flex flex-row items-center;
 }
 
 #navbar-logo {
@@ -81,7 +100,11 @@
 }
 
 #navbar-items {
-  @apply flex mobile:flex-col flex-row gap-x-5 mobile:fixed mobile:top-0 mobile:pt-16 mobile:left-0 mobile:pl-5 mobile:h-full mobile:min-w-60 mobile:max-w-72 mobile:shadow-2xl mobile:bg-neutral-white z-50;
+  @apply mobile:hidden flex flex-row gap-x-5;
+}
+
+#mobile-navbar-items {
+  @apply mobile:flex hidden flex-col fixed top-0 pt-16 left-0 pl-5 h-full min-w-60 max-w-72 shadow-2xl bg-neutral-white z-50;
 }
 
 #close-nnav-menu {
@@ -117,7 +140,7 @@
 }
 
 #cart {
-  @apply absolute top-12 -left-32 w-72 mobile:top-20 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 shadow-2xl bg-neutral-white z-30 rounded-xl!
+  @apply absolute top-12 -left-32 w-72 mobile:top-20 mobile:left-1/2 mobile:transform mobile:-translate-x-1/2 shadow-2xl bg-neutral-white z-10 rounded-xl!
 }
 
 #cart-header {
@@ -174,7 +197,7 @@
 }
 
 .selected-image > img {
-  @apply cursor-pointer rounded-lg hover:opacity-70 transition duration-200 ease-in-out;
+  @apply cursor-pointer rounded-lg;
 }
 
 #product-images-list {
