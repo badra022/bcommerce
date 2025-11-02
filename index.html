@@ -9,16 +9,21 @@
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-
+        <ul id="mobile-navbar-items" class="hide">
+            <img id="close-nnav-menu" src="static/icon-close.svg"
+                alt="close menu">
+            <li class="navbar-item">Collections</li>
+            <li class="navbar-item">Men</li>
+            <li class="navbar-item">Women</li>
+            <li class="navbar-item">About</li>
+            <li class="navbar-item">Contact</li>
+        </ul>
         <nav class="navbar-container" id="navbar">
             <section id="nav-list" class>
                 <img id="nav-menu-button" src="static/icon-menu.svg"
                     alt="open-menu">
                 <img id="navbar-logo" src="static/logo.svg" alt>
-                <div id="dark-overlay" class="hide"></div>
                 <ul id="navbar-items" class="">
-                    <img id="close-nnav-menu" src="static/icon-close.svg"
-                        alt="close menu">
                     <li class="navbar-item">Collections</li>
                     <li class="navbar-item">Men</li>
                     <li class="navbar-item">Women</li>
@@ -34,7 +39,7 @@
                             alt="cart button">
                         <span id="cart-count">3</span>
                     </div>
-                    <div id="cart" class="hide">
+                    <div id="cart" class="">
                         <div id="cart-header">Cart</div>
                         <div class="cart-items">
                             <div id="empty-container">your cart is empty.</div>
@@ -139,6 +144,22 @@
                 </div>
             </div>
         </section>
+        <section class="focused-image hide">
+            <div id="image-careousel-overlay">
+                <div class=""><img class="opened-image" src="static/image-product-1.jpg" alt="selected image"></div>
+                <ul id="product-images-list">
+                    <li class="product-image"><img src="static/image-product-1-thumbnail.jpg" alt="image 1"></li>
+                    <li class="product-image"><img src="static/image-product-2-thumbnail.jpg" alt="image 2"></li>
+                    <li class="product-image"><img src="static/image-product-3-thumbnail.jpg" alt="image 3"></li>
+                    <li class="product-image"><img src="static/image-product-4-thumbnail.jpg" alt="image 4"></li>
+                </ul>
+            </div>
+            <!-- <img id="opened-image" src="static/image-product-1.jpg" alt="product focused image"> -->
+            <img class="carousel-icon" src="static/icon-previous.svg" alt="previous image" id="previous-image-button">
+            <img class="carousel-icon" src="static/icon-next.svg" alt="next image" id="next-image-button">
+            </div>
+        </section>
+        <div class="dark-overlay hide"></div>
         <div id="root"></div>
         <script type="module" src="scripts/index.js" async defer></script>
     </body>
