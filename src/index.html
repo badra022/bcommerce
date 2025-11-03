@@ -111,10 +111,10 @@
             <div id="product-images">
                 <div class="selected-image"><img src="static/image-product-1.jpg" alt="selected image"></div>
                 <ul id="product-images-list">
-                    <li class="product-image"><img src="static/image-product-1-thumbnail.jpg" alt="image 1"></li>
-                    <li class="product-image"><img src="static/image-product-2-thumbnail.jpg" alt="image 2"></li>
-                    <li class="product-image"><img src="static/image-product-3-thumbnail.jpg" alt="image 3"></li>
-                    <li class="product-image"><img src="static/image-product-4-thumbnail.jpg" alt="image 4"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-1-thumbnail.jpg" alt="image 1"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-2-thumbnail.jpg" alt="image 2"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-3-thumbnail.jpg" alt="image 3"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-4-thumbnail.jpg" alt="image 4"></li>
                 </ul>
             </div>
             <div id="product-details">
@@ -144,22 +144,28 @@
                 </div>
             </div>
         </section>
-        <section class="focused-image hide">
+        <section class="focused-image ">
             <div id="image-careousel-overlay">
-                <div class=""><img class="opened-image" src="static/image-product-1.jpg" alt="selected image"></div>
+                <div class="relative">
+                    <svg id="close-image-overlay" width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill-rule="evenodd"/></svg>
+                    <img class="opened-image" src="static/image-product-1.jpg" alt="selected image">
+                    <svg class="carousel-icon" alt="previous image" id="previous-image-button" width="12" height="18" viewBox="0 0 13 18" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 1 L3 9 L11 17" stroke="#1D2026" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/>
+                        </svg>
+                    <svg class="carousel-icon" alt="next image" id="next-image-button" width="13" height="18" viewBox="0 0 13 18" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 1 L10 9 L2 17" stroke="#1D2026" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/>
+                    </svg>
+                </div>
                 <ul id="product-images-list">
-                    <li class="product-image"><img src="static/image-product-1-thumbnail.jpg" alt="image 1"></li>
-                    <li class="product-image"><img src="static/image-product-2-thumbnail.jpg" alt="image 2"></li>
-                    <li class="product-image"><img src="static/image-product-3-thumbnail.jpg" alt="image 3"></li>
-                    <li class="product-image"><img src="static/image-product-4-thumbnail.jpg" alt="image 4"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-1-thumbnail.jpg" alt="image 1"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-2-thumbnail.jpg" alt="image 2"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-3-thumbnail.jpg" alt="image 3"></li>
+                    <li class="product-image group" tabindex="0"><img src="static/image-product-4-thumbnail.jpg" alt="image 4"></li>
                 </ul>
             </div>
-            <!-- <img id="opened-image" src="static/image-product-1.jpg" alt="product focused image"> -->
-            <img class="carousel-icon" src="static/icon-previous.svg" alt="previous image" id="previous-image-button">
-            <img class="carousel-icon" src="static/icon-next.svg" alt="next image" id="next-image-button">
             </div>
         </section>
-        <div class="dark-overlay hide"></div>
+        <div class="dark-overlay"></div>
         <div id="root"></div>
         <script type="module" src="scripts/index.js" async defer></script>
     </body>
