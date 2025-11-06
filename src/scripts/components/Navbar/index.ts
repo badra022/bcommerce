@@ -19,7 +19,7 @@ interface navbarContext {
 const transformStateToTemplateArguments = (cartItems: CartItem[]) : navbarContext => {
     return {
         navList: navList,
-        cartItemCount: cartItems.length
+        cartItemCount: cartItems?.length || 0
     }
 };
 

@@ -17,12 +17,12 @@ interface CartContext {
 
 const transformStateToTemplateArguments = (cartItems: CartItem[]) : CartContext => {
     return {
-        items: cartItems.map(item => ({
+        items: cartItems?.map(item => ({
             itemName: item.title || "Unnamed Item",
             unitPrice: item.price.toFixed(2).toString() || 'Free',
             itemQuantity: item.quantity.toString() || '1',
             totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0'
-        }))
+        })) || []
     }
 };
 
