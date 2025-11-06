@@ -1,12 +1,9 @@
-import {tasks} from './store/index.js'
+// states
+import { cart } from './store/index.js';
 
-import Form from './components/Form.js';
-import TasksColumn from './components/TasksList.js';
+// main components
+import Navbar from './components/Navbar/index.js';
+import Product from './components/Product/index.js';
 
-console.log("Hello, Task Manager!");
-
-new Form(tasks);
-
-new TasksColumn("to do", tasks);
-new TasksColumn("in progress", tasks);
-new TasksColumn("done", tasks);
+const navbarComponent = new Navbar();
+const productComponent = new Product(0);

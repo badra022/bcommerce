@@ -1,5 +1,5 @@
-import tasksReducer from './reducers/tasks.js'
-
+import cartReducer from './reducers/cart.js'
+import type { CartItem } from './reducers/cart.js'
 
 function createStore(reducer: (state: any, action: any) => any, storeName: string) {
   // persistence is mandatory for this store and uses a fixed key
@@ -25,6 +25,7 @@ function createStore(reducer: (state: any, action: any) => any, storeName: strin
   // dispatches an action
   function dispatch(action) {
     if(!action) throw Error("no action passed for dispatch method!");
+    
     state = reducer(state, action);
     // persist updated state
     try {
@@ -48,4 +49,5 @@ function createStore(reducer: (state: any, action: any) => any, storeName: strin
 }
 
 
-export const tasks = createStore(tasksReducer, 'tasks');
+export const cart = createStore(cartReducer, 'cart');
+export type { CartItem };

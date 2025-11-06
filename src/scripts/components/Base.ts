@@ -1,26 +1,18 @@
-type placementPosition = 'start' | 'end';
+// In browser environments the Node 'fs', 'path' and 'url' modules are not available.
+// Load templates via fetch at runtime instead.
 
-export default abstract class Base<T extends HTMLElement> {
-    private _template: HTMLTemplateElement;
-    private _hostElement: HTMLElement;
-    protected _element: T;
-    constructor(private _templateId: string, private _hostElementId: string) {
-        this._template = document.getElementById(_templateId)! as HTMLTemplateElement;
-        this._hostElement = document.getElementById(_hostElementId)! as HTMLElement;
-        this._element = document.importNode(this._template.content, true).firstElementChild! as T;
+export default abstract class Base<TemplateContext> {
+    protected _hostElement!: HTMLElement;
+    constructor(private _template : any, private _hostElementId: string, protected data: TemplateContext = {} as TemplateContext) {
+        this._hostElement = document.querySelector(`#${this._hostElementId}`)! as HTMLElement;
+        this.render(this.data);
     }
 
-    public render(position: placementPosition): void {
-        // console.log("Rendering component...", this._element);
-        this._hostElement.insertAdjacentElement(position === 'start' ? 'afterbegin' : 'beforeend', this._element);
-        this.renderContent();
-    }
-
-    public get element(): T {
-        return this._element;
+    public render(data: TemplateContext): void {
+        console.log("Rendering component...", this._hostElement);
+        this._hostElement.innerHTML = this._template(data);
+        this.configure();
     }
 
     public abstract configure(): void;
-
-    protected abstract renderContent(): void;
 }

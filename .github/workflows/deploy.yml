@@ -27,6 +27,7 @@ jobs:
 
     - name: build the site
       run: |
+        npm run prebuild
         npm run build
 
     - name: Deploy to GitHub Pages
