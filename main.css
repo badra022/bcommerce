@@ -391,6 +391,7 @@
 #nav-menu-button {
   margin-inline-end: calc(var(--spacing) * 4);
   display: none;
+  cursor: pointer;
   @media (max-width: 800px) {
     display: inline-block;
   }
@@ -693,7 +694,6 @@
   }
 }
 .selected-image {
-  position: relative;
   width: calc(var(--spacing) * 100);
   @media (max-width: 800px) {
     width: 100vw;
@@ -705,7 +705,7 @@
 }
 .selected-image #select-prev {
   position: absolute;
-  top: calc(1/2 * 100%);
+  top: calc(1/3 * 100%);
   left: calc(var(--spacing) * 4);
   display: none;
   --tw-translate-y: calc(calc(1/2 * 100%) * -1);
@@ -717,7 +717,7 @@
 }
 .selected-image #select-next {
   position: absolute;
-  top: calc(1/2 * 100%);
+  top: calc(1/3 * 100%);
   right: calc(var(--spacing) * 4);
   display: none;
   --tw-translate-y: calc(calc(1/2 * 100%) * -1);

@@ -6,7 +6,7 @@ import navbarTemplate from '../../../views/navbar.hbs';
 const transformStateToTemplateArguments = (cartItems) => {
     return {
         navList: navList,
-        cartItemCount: cartItems.length
+        cartItemCount: cartItems?.length || 0
     };
 };
 export default class Navbar extends Base {

@@ -3,12 +3,12 @@ import { cart } from "../../store/index.js";
 import cartTemplate from '../../../views/cart.hbs';
 const transformStateToTemplateArguments = (cartItems) => {
     return {
-        items: cartItems.map(item => ({
+        items: cartItems?.map(item => ({
             itemName: item.title || "Unnamed Item",
             unitPrice: item.price.toFixed(2).toString() || 'Free',
             itemQuantity: item.quantity.toString() || '1',
             totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0'
-        }))
+        })) || []
     };
 };
 export default class Cart extends Base {
