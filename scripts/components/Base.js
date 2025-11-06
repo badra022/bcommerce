@@ -1,16 +1,14 @@
 export default class Base {
-    constructor(_templateId, _hostElementId) {
-        this._templateId = _templateId;
+    constructor(_template, _hostElementId, data = {}) {
+        this._template = _template;
         this._hostElementId = _hostElementId;
-        this._template = document.getElementById(_templateId);
-        this._hostElement = document.getElementById(_hostElementId);
-        this._element = document.importNode(this._template.content, true).firstElementChild;
+        this.data = data;
+        this._hostElement = document.querySelector(`#${this._hostElementId}`);
+        this.render(this.data);
     }
-    render(position) {
-        this._hostElement.insertAdjacentElement(position === 'start' ? 'afterbegin' : 'beforeend', this._element);
-        this.renderContent();
-    }
-    get element() {
-        return this._element;
+    render(data) {
+        console.log("Rendering component...", this._hostElement);
+        this._hostElement.innerHTML = this._template(data);
+        this.configure();
     }
 }

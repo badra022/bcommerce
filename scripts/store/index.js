@@ -1,4 +1,4 @@
-import tasksReducer from './reducers/tasks.js';
+import cartReducer from './reducers/cart.js';
 function createStore(reducer, storeName) {
     const persistKey = storeName;
     let state;
@@ -33,4 +33,4 @@ function createStore(reducer, storeName) {
     }
     return { getState, dispatch, subscribe };
 }
-export const tasks = createStore(tasksReducer, 'tasks');
+export const cart = createStore(cartReducer, 'cart');

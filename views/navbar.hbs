@@ -1,0 +1,30 @@
+<ul id="mobile-navbar-items" class="hide">
+    <img id="close-nnav-menu" src="static/icon-close.svg" alt="close menu">
+    {{#each navList}}
+        <li class="navbar-item">{{this}}</li>
+    {{/each}}
+</ul>
+<nav class="navbar-container" id="navbar">
+    <section id="nav-list">
+        <img id="nav-menu-button" src="static/icon-menu.svg" alt="open-menu">
+        <img id="navbar-logo" src="static/logo.svg" alt = "site logo">
+        <ul id="navbar-items">
+            {{#each navList}}
+            <li class="navbar-item">{{this}}</li>
+            {{/each}}
+        </ul>
+    </section>
+
+    <section id="account-container">
+        <div id="cart-container">
+            <div id="cart-button-container" tabindex="0">
+                <img id="cart-button" src="static/icon-cart.svg" alt="cart button">
+                <span id="cart-count">{{cartItemCount}}</span>
+            </div>
+            <div id="cart">
+                <!-- cart component goes here -->
+            </div>
+        </div>
+        <img id="account-image-container" src="static/image-avatar.png" alt="profile photo" id="account-image">
+    </section>
+</nav>
