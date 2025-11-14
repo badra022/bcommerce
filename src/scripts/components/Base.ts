@@ -9,7 +9,6 @@ export default abstract class Base<TemplateContext> {
     }
 
     public render(data: TemplateContext): void {
-        console.log("Rendering component...", this._hostElement);
         this._hostElement.innerHTML = this._template(data);
         this.configure();
     }

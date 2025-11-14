@@ -128,7 +128,7 @@
 }
 
 .navbar-item {
-  @apply inline-block h-24 mobile:h-10  text-center mobile:text-left mobile:text-neutral-black mobile:font-bold content-center hover:text-neutral-black text-neutral-grayish-blue cursor-pointer hover:border-b-primary hover:border-b-4 mobile:hover:border-b-0 transition duration-300 ease-in-out mobile:hover:text-neutral-dark-grayish-blue;
+  @apply inline-block h-24 mobile:h-10  text-center mobile:text-left mobile:text-neutral-black mobile:font-bold content-center hover:text-neutral-black focus:text-neutral-black text-neutral-grayish-blue cursor-pointer hover:border-b-primary hover:border-b-4 focus:border-b-primary focus:border-b-4 mobile:hover:border-b-0 transition duration-300 ease-in-out mobile:hover:text-neutral-dark-grayish-blue;
 }
 
 #account-container {
@@ -295,4 +295,44 @@
 
 #add-to-cart-button span {
   @apply text-neutral-black font-primary-bold group-hover:text-neutral-white transition duration-200 ease-in-out;
+}
+
+#products-list-container {
+  @apply grid grid-cols-3 gap-8 px-4 mobile:grid-cols-1 mobile:px-0;
+}
+
+.product-card-image > img {
+  @apply rounded-2xl ;
+}
+
+.product-card {
+  @apply cursor-pointer p-2 transition duration-200 ease-in-out hover:shadow-2xl hover:scale-101 ;
+}
+
+.product-card-details {
+  @apply py-2 px-2;
+}
+
+.product-seller {
+  @apply uppercase text-xs font-primary-bold text-neutral-dark-grayish-blue my-2;
+}
+
+.product-card .product-pricing {
+  @apply flex w-full items-center;
+}
+
+.product-card .product-name {
+  @apply text-xl font-bold;
+}
+
+.product-card .product-discount {
+  @apply ml-auto bg-neutral-black text-neutral-white px-2 py-1 rounded-md font-primary-bold;
+}
+
+.product-card .product-price {
+  @apply text-xl font-primary-bold pe-2;
+}
+
+.product-card .old-price {
+  @apply text-neutral-dark-grayish-blue font-primary-bold font-bold line-through decoration-neutral-dark-grayish-blue/50;
 }
