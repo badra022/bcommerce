@@ -1,0 +1,18 @@
+{{#each products}}
+<div class="product-card">
+    <div class="product-card-image">
+        <img src="{{this.imageSrc}}"
+            alt="product-image">
+    </div>
+    <div class="product-card-details">
+        <h3 class="product-seller">{{this.seller}}</h3>
+        <h1 class="product-name">{{this.name}}</h1>
+        <div class="product-pricing">
+            <span class="product-price">{{this.currency}}{{this.price}}</span>
+            <div class="old-price">{{this.currency}}{{this.oldPrice}}</div>
+            <div class="product-discount">{{this.discount}}%</div>
+        </div>
+        
+    </div>
+</div>
+{{/each}}
