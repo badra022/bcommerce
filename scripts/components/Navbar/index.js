@@ -1,28 +1,23 @@
 import Base from "../Base.js";
-import { cart } from "../../store/index.js";
 import { navList } from "../constants.js";
-import Cart from "../Cart/index.js";
+import { router } from "../../index.js";
 import navbarTemplate from '../../../views/navbar.hbs';
-const transformStateToTemplateArguments = (cartItems) => {
+const transformStateToTemplateArguments = () => {
     return {
-        navList: navList,
-        cartItemCount: cartItems?.length || 0
+        navList: navList
     };
 };
 export default class Navbar extends Base {
     constructor() {
         console.log("Initializing Navbar component...");
-        super(navbarTemplate, "navbar-big-container", transformStateToTemplateArguments(cart.getState()));
+        super(navbarTemplate, "navbar-big-container", transformStateToTemplateArguments());
     }
     configure() {
-        this._cartComponent = new Cart();
         document.querySelector('#close-nnav-menu').addEventListener('click', this.closeMobileMenu.bind(this));
         document.querySelector('#nav-menu-button').addEventListener('click', this.openMobileMenu.bind(this));
-        document.querySelector('#cart-button-container').addEventListener('click', this.toggleCart.bind(this));
-        cart.subscribe(this.updateCartNotificationCount.bind(this));
-    }
-    toggleCart() {
-        this._cartComponent.toggleCart();
+        document.querySelectorAll('.navbar-item').forEach((elem, index) => {
+            elem.addEventListener('click', this.handleNavigation.bind(this, index));
+        });
     }
     closeMobileMenu() {
         const mobileNav = document.querySelector('#mobile-navbar-items');
@@ -39,6 +34,10 @@ export default class Navbar extends Base {
     updateCartNotificationCount(action) {
         if (action.type !== 'add' && action.type !== 'remove')
             return;
-        this.render(transformStateToTemplateArguments(cart.getState()));
+        this.render(transformStateToTemplateArguments());
+    }
+    handleNavigation(index) {
+        const section = navList[index].toLowerCase();
+        router.navigate(section);
     }
 }

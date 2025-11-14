@@ -7,7 +7,6 @@ export default class Base {
         this.render(this.data);
     }
     render(data) {
-        console.log("Rendering component...", this._hostElement);
         this._hostElement.innerHTML = this._template(data);
         this.configure();
     }

@@ -3,6 +3,7 @@ import { cart } from "../../store/index.js";
 import cartTemplate from '../../../views/cart.hbs';
 const transformStateToTemplateArguments = (cartItems) => {
     return {
+        cartItemCount: cartItems?.length || 0,
         items: cartItems?.map(item => ({
             itemName: item.title || "Unnamed Item",
             unitPrice: item.price.toFixed(2).toString() || 'Free',
@@ -13,14 +14,15 @@ const transformStateToTemplateArguments = (cartItems) => {
 };
 export default class Cart extends Base {
     constructor() {
-        super(cartTemplate, "cart", transformStateToTemplateArguments(cart.getState()));
+        console.log("Initializing Cart component...");
+        super(cartTemplate, "cart-container", transformStateToTemplateArguments(cart.getState()));
         if (cart.getState()?.items?.length) {
             this._hostElement.querySelector('#empty-container')?.classList.add('hide');
         }
         else {
             this._hostElement.querySelector('#empty-container')?.classList.remove('hide');
         }
-        this._hostElement.classList.add('hide');
+        this._hostElement.querySelector('#cart').classList.add('hide');
     }
     configure() {
         document.querySelectorAll('.cart-item-delete-button').forEach((elem, index) => {
@@ -28,6 +30,7 @@ export default class Cart extends Base {
         });
         document.querySelector('#cart-checkout-button').addEventListener('click', this.checkout.bind(this));
         cart.subscribe(this.addItem.bind(this));
+        document.querySelector('#cart-button-container').addEventListener('click', this.toggleCart.bind(this));
     }
     addItem(action) {
         if (action.type !== 'add')
@@ -35,11 +38,12 @@ export default class Cart extends Base {
         this.render(transformStateToTemplateArguments(cart.getState()));
     }
     toggleCart() {
-        if (this._hostElement.classList.contains('hide')) {
-            this._hostElement.classList.remove('hide');
+        const cartElement = this._hostElement.querySelector('#cart');
+        if (cartElement.classList.contains('hide')) {
+            cartElement.classList.remove('hide');
         }
         else {
-            this._hostElement.classList.add('hide');
+            cartElement.classList.add('hide');
         }
     }
     deleteItem(event) {
@@ -51,6 +55,7 @@ export default class Cart extends Base {
                 title: parentElement.querySelector('.cart-item-description')?.textContent
             }
         });
+        this.render(transformStateToTemplateArguments(cart.getState()));
     }
     checkout() {
         console.log("Checkout initiated: ", cart.getState());
