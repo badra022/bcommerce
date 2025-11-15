@@ -57,7 +57,6 @@ export default class Product extends Base<productContext>{
     private _currentQuantity: number = 0;
     private _focusedImageIndex: number = 0;
     constructor(private _productIndex: number) {
-        console.log("Initializing Product component...");
         super(productTemplate, "product");
         this.render(transformStateToTemplateArguments(this));
     }

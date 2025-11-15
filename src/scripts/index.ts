@@ -55,10 +55,10 @@ class Router {
             case 'men':
             case 'women':
             case 'collections':
-            case 'about':
-            case 'contact':
                 this.showProductsList(route);
                 break;
+            case 'about':
+            case 'contact':
             default:
                 // Unknown route - show products list
                 this.showProductsList('all');
@@ -74,14 +74,16 @@ class Router {
     private showProductsList(category: string): void {
         console.log(`Routing to category: ${category}`);
         this.productPage.unmount();
-        
-        // Filter products based on category if needed
-        // For now, showing all products
-        // You can add filtering logic here based on the category
-        this.productsListPage.mount(products);
+
+        if(category !== 'all') {
+            const filteredProducts = products.filter(product => product.category.includes(category));
+            this.productsListPage.mount(filteredProducts);
+            return;
+        } else {
+            this.productsListPage.mount(products);
+        }
     }
 
-    // Public method to navigate programmatically
     public navigate(route: string): void {
         window.location.hash = route;
     }

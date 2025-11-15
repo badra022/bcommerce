@@ -24,14 +24,16 @@ const transformStateToTemplateArguments = () : navbarContext => {
 
 export default class Navbar extends Base<navbarContext>{
     constructor() {
-        console.log("Initializing Navbar component...");
         super(navbarTemplate, "navbar-big-container", transformStateToTemplateArguments());
     }
 
     public configure(): void {
         document.querySelector('#close-nnav-menu').addEventListener('click', this.closeMobileMenu.bind(this));
         document.querySelector('#nav-menu-button').addEventListener('click', this.openMobileMenu.bind(this));
-        document.querySelectorAll('.navbar-item').forEach( (elem, index) => {
+        document.querySelectorAll('.navbar-container .navbar-item').forEach( (elem, index) => {
+            elem.addEventListener('click', this.handleNavigation.bind(this, index))
+        });
+        document.querySelectorAll('#mobile-navbar-items .navbar-item').forEach( (elem, index) => {
             elem.addEventListener('click', this.handleNavigation.bind(this, index))
         });
     }
@@ -60,5 +62,6 @@ export default class Navbar extends Base<navbarContext>{
     private handleNavigation(index: number): void {
         const section = navList[index].toLowerCase();
         router.navigate(section);
-    } 
+        this.closeMobileMenu();
+    }
 }

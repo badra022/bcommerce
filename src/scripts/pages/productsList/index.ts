@@ -1,4 +1,5 @@
 import Base from "../../components/Base.js";
+import { router } from "../../index.js";
 
 // @ts-ignore: allow importing handlebars template without type declarations
 import cardsTemplate from '../../../views/productCards.hbs';
@@ -30,8 +31,6 @@ const transformStateToTemplateArguments = (productsListComponent: ProductsList) 
 
 export default class ProductsList extends Base<productCardsContext>{
     constructor(private _products: Array<any>) {
-        console.log("Initializing Product cards component...");
-        console.log(cardsTemplate);
         super(cardsTemplate, "products-list-container");
         this.render(transformStateToTemplateArguments(this));
     }
@@ -52,6 +51,11 @@ export default class ProductsList extends Base<productCardsContext>{
     }
 
     public configure(): void {
-        // add container click event to go to the product page of the clicked product
+        this._hostElement.querySelectorAll('.product-card').forEach( (elem) => {
+            const productId = elem.getAttribute('data-id');
+            elem.addEventListener('click', () => {
+                router.navigate(productId);
+            });
+        });
     }
 }
