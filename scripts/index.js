@@ -32,10 +32,10 @@ class Router {
             case 'men':
             case 'women':
             case 'collections':
-            case 'about':
-            case 'contact':
                 this.showProductsList(route);
                 break;
+            case 'about':
+            case 'contact':
             default:
                 this.showProductsList('all');
         }
@@ -48,7 +48,14 @@ class Router {
     showProductsList(category) {
         console.log(`Routing to category: ${category}`);
         this.productPage.unmount();
-        this.productsListPage.mount(products);
+        if (category !== 'all') {
+            const filteredProducts = products.filter(product => product.category.includes(category));
+            this.productsListPage.mount(filteredProducts);
+            return;
+        }
+        else {
+            this.productsListPage.mount(products);
+        }
     }
     navigate(route) {
         window.location.hash = route;

@@ -1,4 +1,5 @@
 import Base from "../../components/Base.js";
+import { router } from "../../index.js";
 import cardsTemplate from '../../../views/productCards.hbs';
 const transformStateToTemplateArguments = (productsListComponent) => {
     return {
@@ -13,8 +14,6 @@ const transformStateToTemplateArguments = (productsListComponent) => {
 };
 export default class ProductsList extends Base {
     constructor(_products) {
-        console.log("Initializing Product cards component...");
-        console.log(cardsTemplate);
         super(cardsTemplate, "products-list-container");
         this._products = _products;
         this.render(transformStateToTemplateArguments(this));
@@ -31,5 +30,11 @@ export default class ProductsList extends Base {
         this._hostElement.classList.add('hide');
     }
     configure() {
+        this._hostElement.querySelectorAll('.product-card').forEach((elem) => {
+            const productId = elem.getAttribute('data-id');
+            elem.addEventListener('click', () => {
+                router.navigate(productId);
+            });
+        });
     }
 }

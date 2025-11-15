@@ -26,7 +26,6 @@ const transformStateToTemplateArguments = (productComponent) => {
 };
 export default class Product extends Base {
     constructor(_productIndex) {
-        console.log("Initializing Product component...");
         super(productTemplate, "product");
         this._productIndex = _productIndex;
         this._currentQuantity = 0;

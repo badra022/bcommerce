@@ -1,8 +1,10 @@
 export const navList = ['Collections', 'Men', 'Women', 'About', 'Contact'];
 export const products = [
     {
+        id: 0,
         seller: 'sneaker company',
-        name: 'Fall Limited Edition Sneakers',
+        category: ['men'],
+        name: 'Fall Limited Edition Sneakers for men',
         description: `Lorem ipsum dolor sit amet
                     consectetur adipisicing elit. Sint porro sit, a officiis ut
                     molestiae esse quisquam expedita harum nobis error
@@ -35,8 +37,10 @@ export const products = [
         ]
     },
     {
+        id: 1,
         seller: 'sneaker company',
-        name: 'Fall Limited Edition Sneakers',
+        category: ['women'],
+        name: 'Fall Limited Edition Sneakers for women',
         description: `Lorem ipsum dolor sit amet
                     consectetur adipisicing elit. Sint porro sit, a officiis ut
                     molestiae esse quisquam expedita harum nobis error
@@ -69,8 +73,10 @@ export const products = [
         ]
     },
     {
+        id: 2,
         seller: 'sneaker company',
-        name: 'Fall Limited Edition Sneakers',
+        category: ['women'],
+        name: 'Fall Limited Edition Sneakers for women',
         description: `Lorem ipsum dolor sit amet
                     consectetur adipisicing elit. Sint porro sit, a officiis ut
                     molestiae esse quisquam expedita harum nobis error
@@ -103,8 +109,10 @@ export const products = [
         ]
     },
     {
+        id: 3,
         seller: 'sneaker company',
-        name: 'Fall Limited Edition Sneakers',
+        category: ['men', 'women'],
+        name: 'Fall Limited Edition Sneakers for All',
         description: `Lorem ipsum dolor sit amet
                     consectetur adipisicing elit. Sint porro sit, a officiis ut
                     molestiae esse quisquam expedita harum nobis error

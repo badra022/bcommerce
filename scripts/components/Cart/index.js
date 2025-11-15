@@ -14,7 +14,6 @@ const transformStateToTemplateArguments = (cartItems) => {
 };
 export default class Cart extends Base {
     constructor() {
-        console.log("Initializing Cart component...");
         super(cartTemplate, "cart-container", transformStateToTemplateArguments(cart.getState()));
         if (cart.getState()?.items?.length) {
             this._hostElement.querySelector('#empty-container')?.classList.add('hide');
