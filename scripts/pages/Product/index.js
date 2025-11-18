@@ -1,23 +1,22 @@
 import Base from "../../components/Base.js";
 import { cart } from "../../store/index.js";
 import productTemplate from '../../../views/product.hbs';
-import { products } from "../../components/constants.js";
 const transformStateToTemplateArguments = (productComponent) => {
     const quantity = productComponent.quantity;
     const focusedImageIndex = productComponent.focusedImageIndex;
-    const productIndex = productComponent.productIndex;
+    const product = productComponent.product;
     return {
         selectedImage: {
-            image: products[productIndex].images[focusedImageIndex].image,
-            thumbnail: products[productIndex].images[focusedImageIndex].thumbnail,
-            number: products[productIndex].images[focusedImageIndex].number.toString()
+            image: product.images[focusedImageIndex].image,
+            thumbnail: product.images[focusedImageIndex].thumbnail,
+            number: product.images[focusedImageIndex].number.toString()
         },
         product: {
-            ...products[productIndex],
-            oldPrice: products[productIndex].price / (1 - products[productIndex].discount / 100)
+            ...product,
+            oldPrice: product.price / (1 - product.discount / 100)
         },
         currentQuantity: quantity,
-        images: products[productIndex].images.map(img => ({
+        images: product.images.map(img => ({
             image: img.image,
             thumbnail: img.thumbnail,
             number: img.number.toString()
@@ -25,15 +24,15 @@ const transformStateToTemplateArguments = (productComponent) => {
     };
 };
 export default class Product extends Base {
-    constructor(_productIndex) {
+    constructor(_product) {
         super(productTemplate, "product");
-        this._productIndex = _productIndex;
+        this._product = _product;
         this._currentQuantity = 0;
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
     }
-    mount(productIndex) {
-        this._productIndex = productIndex;
+    mount(product) {
+        this._product = product;
         this._currentQuantity = 0;
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
@@ -52,11 +51,11 @@ export default class Product extends Base {
         return this._focusedImageIndex;
     }
     set focusedImageIndex(value) {
-        this._focusedImageIndex = Math.max(0, Math.min(value, products[this._productIndex].images.length - 1));
-        document.querySelector('.selected-image img').setAttribute('src', products[this.productIndex].images[this._focusedImageIndex].image);
+        this._focusedImageIndex = Math.max(0, Math.min(value, this.product.images.length - 1));
+        document.querySelector('.selected-image img').setAttribute('src', this.product.images[this._focusedImageIndex].image);
     }
-    get productIndex() {
-        return this._productIndex;
+    get product() {
+        return this._product;
     }
     configure() {
         document.querySelector('#decrease-quantity').addEventListener('click', this.decreaseQuantity.bind(this));
@@ -70,21 +69,25 @@ export default class Product extends Base {
     }
     decreaseQuantity() {
         this.quantity--;
-        this.render(transformStateToTemplateArguments(this));
+        this._updateQuantityValue();
     }
     increaseQuantity() {
         this.quantity++;
-        this.render(transformStateToTemplateArguments(this));
+        this._updateQuantityValue();
+    }
+    _updateQuantityValue() {
+        const quantityElement = document.querySelector('#selected-quantity');
+        quantityElement.textContent = this.quantity.toString();
     }
     addToCart() {
         cart.dispatch({
             type: 'add',
             data: {
-                title: products[this.productIndex].name,
-                desc: products[this.productIndex].description,
-                price: products[this.productIndex].price,
+                title: this.product.name,
+                desc: this.product.description,
+                price: this.product.price,
                 quantity: this.quantity,
-                discount: products[this.productIndex].discount
+                discount: this.product.discount
             }
         });
         this.quantity = 0;

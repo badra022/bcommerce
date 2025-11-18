@@ -2,15 +2,7 @@ import Base from "../../components/Base.js";
 import { router } from "../../index.js";
 import cardsTemplate from '../../../views/productCards.hbs';
 const transformStateToTemplateArguments = (productsListComponent) => {
-    return {
-        products: productsListComponent.products?.map(product => {
-            return {
-                ...product,
-                oldPrice: product.price / (1 - product.discount / 100),
-                imageSrc: product.images[0].image
-            };
-        })
-    };
+    return productsListComponent.products;
 };
 export default class ProductsList extends Base {
     constructor(_products) {

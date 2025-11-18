@@ -1,4 +1,5 @@
 {{#each products}}
+{{#if this}}
 <div class="product-card" data-id="{{this.id}}" tabindex="0">
     <div class="product-card-image">
         <img src="{{this.imageSrc}}"
@@ -9,10 +10,13 @@
         <h1 class="product-name">{{this.name}}</h1>
         <div class="product-pricing">
             <span class="product-price">{{this.currency}}{{this.price}}</span>
+            {{#if this.discount}}
             <div class="old-price">{{this.currency}}{{this.oldPrice}}</div>
             <div class="product-discount">{{this.discount}}%</div>
+            {{/if}}
         </div>
         
     </div>
 </div>
+{{/if}}
 {{/each}}

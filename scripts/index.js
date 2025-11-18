@@ -2,55 +2,63 @@ import Cart from './components/Cart/index.js';
 import Navbar from './components/Navbar/index.js';
 import Product from './pages/Product/index.js';
 import ProductsList from './pages/productsList/index.js';
-import { products } from './components/constants.js';
+import { getProductById, getAllProducts } from './services/productService.js';
 const navbarComponent = new Navbar();
 const cartComponent = new Cart();
-const productComponent = new Product(0);
-const productsListComponent = new ProductsList(products);
-productComponent.unmount();
-productsListComponent.unmount();
 class Router {
-    constructor(productPage, productsListPage) {
-        this.productPage = productPage;
-        this.productsListPage = productsListPage;
-        window.addEventListener('hashchange', () => this.handleRoute());
+    constructor() {
+        window.addEventListener('hashchange', async () => {
+            await this.handleRoute();
+        });
         this.handleRoute();
     }
-    handleRoute() {
+    async handleRoute() {
         const hash = window.location.hash.slice(1);
+        if (!this.productPage) {
+            this.productPage = new Product(await getProductById(1));
+        }
+        if (!this.productsListPage) {
+            this.productsListPage = new ProductsList(await getAllProducts());
+        }
         if (!hash) {
-            this.showProductsList('all');
+            await this.showProductsList(await getAllProducts(), 'all');
             return;
         }
         const productId = parseInt(hash);
         if (!isNaN(productId)) {
-            this.showProduct(productId);
+            const product = await getProductById(productId);
+            await this.showProduct(product);
             return;
         }
         const route = hash.toLowerCase();
+        const products = await getAllProducts();
         switch (route) {
             case 'men':
             case 'women':
             case 'collections':
-                this.showProductsList(route);
+                await this.showProductsList(products, route);
                 break;
             case 'about':
             case 'contact':
             default:
-                this.showProductsList('all');
+                await this.showProductsList(products, 'all');
         }
     }
-    showProduct(productId) {
-        console.log(`Routing to product #${productId}`);
+    showProduct(product) {
+        console.log(`Routing to product #${product}`);
         this.productsListPage.unmount();
-        this.productPage.mount(productId);
+        this.productPage.mount(product);
     }
-    showProductsList(category) {
+    showProductsList(products, category) {
         console.log(`Routing to category: ${category}`);
         this.productPage.unmount();
+        console.log(products);
         if (category !== 'all') {
-            const filteredProducts = products.filter(product => product.category.includes(category));
-            this.productsListPage.mount(filteredProducts);
+            const filteredProducts = products.products?.filter(product => product.category.includes(category));
+            if (!filteredProducts) {
+                this.productsListPage.mount(products);
+            }
+            this.productsListPage.mount({ products: filteredProducts });
             return;
         }
         else {
@@ -61,5 +69,5 @@ class Router {
         window.location.hash = route;
     }
 }
-const router = new Router(productComponent, productsListComponent);
+const router = new Router();
 export { router };

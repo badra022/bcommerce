@@ -9,7 +9,8 @@ const transformStateToTemplateArguments = (cartItems) => {
             unitPrice: item.price.toFixed(2).toString() || 'Free',
             itemQuantity: item.quantity.toString() || '1',
             totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0'
-        })) || []
+        })) || [],
+        totalPrice: cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2).toString() || '0'
     };
 };
 export default class Cart extends Base {
