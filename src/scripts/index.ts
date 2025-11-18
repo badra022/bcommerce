@@ -3,81 +3,88 @@ import Cart from './components/Cart/index.js';
 import Navbar from './components/Navbar/index.js';
 import Product from './pages/Product/index.js';
 import ProductsList from './pages/productsList/index.js';
-import { products } from './components/constants.js';
+import { getProductById , getAllProducts} from './services/productService.js';
+import type { productViewDto, productsListViewDto } from './types/productDto.js';
 
 
 const navbarComponent = new Navbar();
 const cartComponent = new Cart();
-
-// Initialize pages
-const productComponent = new Product(0);
-const productsListComponent = new ProductsList(products);
-
-// Hide both pages initially
-productComponent.unmount();
-productsListComponent.unmount();
 
 // Custom Router
 class Router {
     private productPage: Product;
     private productsListPage: ProductsList;
 
-    constructor(productPage: Product, productsListPage: ProductsList) {
-        this.productPage = productPage;
-        this.productsListPage = productsListPage;
-        
+    constructor() {
         // Listen to hash changes
-        window.addEventListener('hashchange', () => this.handleRoute());
+        window.addEventListener('hashchange', async () => {
+            await this.handleRoute();
+        });
         
         // Handle initial route
         this.handleRoute();
     }
 
-    private handleRoute(): void {
+    private async handleRoute(): Promise<void> {
         const hash = window.location.hash.slice(1); // Remove the '#'
+
+        if(!this.productPage) {
+            this.productPage = new Product(await getProductById(1));
+        }
+        if(!this.productsListPage) {
+            this.productsListPage = new ProductsList(await getAllProducts());
+        }
         
         if (!hash) {
             // Default route - show products list
-            this.showProductsList('all');
+            await this.showProductsList(await getAllProducts(), 'all');
             return;
         }
 
         // Check if hash is a number (product ID)
         const productId = parseInt(hash);
         if (!isNaN(productId)) {
-            this.showProduct(productId);
+            const product = await getProductById(productId);
+            await this.showProduct(product);
             return;
         }
 
         // Handle category routes
         const route = hash.toLowerCase();
+        const products = await getAllProducts();
         switch (route) {
             case 'men':
             case 'women':
             case 'collections':
-                this.showProductsList(route);
+                await this.showProductsList(products, route);
                 break;
             case 'about':
             case 'contact':
             default:
                 // Unknown route - show products list
-                this.showProductsList('all');
+                await this.showProductsList(products, 'all');
         }
     }
 
-    private showProduct(productId: number): void {
-        console.log(`Routing to product #${productId}`);
+    private showProduct(product: productViewDto): void {
+        console.log(`Routing to product #${product}`);
         this.productsListPage.unmount();
-        this.productPage.mount(productId);
+        this.productPage.mount(product);
     }
 
-    private showProductsList(category: string): void {
+    private showProductsList(products : productsListViewDto, category: string): void {
         console.log(`Routing to category: ${category}`);
         this.productPage.unmount();
 
+        console.log(products);
+
         if(category !== 'all') {
-            const filteredProducts = products.filter(product => product.category.includes(category));
-            this.productsListPage.mount(filteredProducts);
+            const filteredProducts = products.products?.filter(product => product.category.includes(category));
+            if(!filteredProducts) {
+                // fallback to the full products list if filtering fails
+                this.productsListPage.mount(products);
+            }
+            this.productsListPage.mount({products: filteredProducts});
             return;
         } else {
             this.productsListPage.mount(products);
@@ -90,7 +97,7 @@ class Router {
 }
 
 // Initialize router
-const router = new Router(productComponent, productsListComponent);
+const router = new Router();
 
 // Export router for use in other components (e.g., Navbar)
 export { router };

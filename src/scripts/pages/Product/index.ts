@@ -4,48 +4,47 @@ import { cart } from "../../store/index.js";
 // @ts-ignore: allow importing handlebars template without type declarations
 import productTemplate from '../../../views/product.hbs';
 
-import { products } from "../../components/constants.js";
+import { productViewDto } from "../../types/productDto.js";
 
 interface productContext {
-    // Define the context properties needed for the product component
     selectedImage: {
         image: string,
         thumbnail: string,
         number: string
     },
     product: {
-        seller: string, 
+        seller: string,
         name: string,
         description: string,
         price: number,
         currency: string,
         discount: number,
-        oldPrice: number
-    }
+        oldPrice: number,
+    },
     images: Array<{
         image: string,
         thumbnail: string,
         number: string
-    }>;
+    }>,
     currentQuantity: number;
 }
 
-const transformStateToTemplateArguments = (productComponent: Product) : productContext => {
+const transformStateToTemplateArguments = ( productComponent: Product) : productContext => {
     const quantity = productComponent.quantity;
     const focusedImageIndex = productComponent.focusedImageIndex;
-    const productIndex = productComponent.productIndex;
+    const product = productComponent.product;
     return {
         selectedImage: {
-            image: products[productIndex].images[focusedImageIndex].image,
-            thumbnail: products[productIndex].images[focusedImageIndex].thumbnail,
-            number: products[productIndex].images[focusedImageIndex].number.toString()
+            image: product.images[focusedImageIndex].image,
+            thumbnail: product.images[focusedImageIndex].thumbnail,
+            number: product.images[focusedImageIndex].number.toString()
         },
         product: {
-            ...products[productIndex],
-            oldPrice: products[productIndex].price / (1 - products[productIndex].discount / 100)
+            ...product,
+            oldPrice: product.price / (1 - product.discount / 100)
         },
         currentQuantity:quantity,
-        images: products[productIndex].images.map(img => ({
+        images: product.images.map(img => ({
             image: img.image,
             thumbnail: img.thumbnail,
             number: img.number.toString()
@@ -56,13 +55,13 @@ const transformStateToTemplateArguments = (productComponent: Product) : productC
 export default class Product extends Base<productContext>{
     private _currentQuantity: number = 0;
     private _focusedImageIndex: number = 0;
-    constructor(private _productIndex: number) {
+    constructor(private _product: productViewDto) {
         super(productTemplate, "product");
         this.render(transformStateToTemplateArguments(this));
     }
 
-    public mount(productIndex: number): void {
-        this._productIndex = productIndex;
+    public mount(product: productViewDto): void {
+        this._product = product;
         this._currentQuantity = 0;
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
@@ -87,12 +86,12 @@ export default class Product extends Base<productContext>{
     }
 
     set focusedImageIndex(value: number) {
-        this._focusedImageIndex = Math.max(0, Math.min(value, products[this._productIndex].images.length - 1));
-        document.querySelector('.selected-image img')!.setAttribute('src', products[this.productIndex].images[this._focusedImageIndex].image);
+        this._focusedImageIndex = Math.max(0, Math.min(value, this.product.images.length - 1));
+        document.querySelector('.selected-image img')!.setAttribute('src', this.product.images[this._focusedImageIndex].image);
     }
-
-    get productIndex() : number {
-        return this._productIndex;
+    
+    get product(): productViewDto {
+        return this._product;
     }
 
     public configure(): void {
@@ -109,23 +108,28 @@ export default class Product extends Base<productContext>{
 
     public decreaseQuantity(): void {
         this.quantity--;
-        this.render(transformStateToTemplateArguments(this));
+        this._updateQuantityValue();
     }
 
     public increaseQuantity(): void {
         this.quantity++;
-        this.render(transformStateToTemplateArguments(this));
+        this._updateQuantityValue();
+    }
+
+    private _updateQuantityValue(): void {
+        const quantityElement : HTMLElement = document.querySelector('#selected-quantity')!;
+        quantityElement.textContent = this.quantity.toString();
     }
 
     public addToCart(): void {
         cart.dispatch({
             type: 'add',
             data: {
-                title: products[this.productIndex].name,
-                desc: products[this.productIndex].description,
-                price: products[this.productIndex].price,
+                title: this.product.name,
+                desc: this.product.description,
+                price: this.product.price,
                 quantity: this.quantity,
-                discount: products[this.productIndex].discount
+                discount: this.product.discount
             }
         })
 

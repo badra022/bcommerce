@@ -20,9 +20,13 @@
     <p id="product-description">{{product.description}}</p>
     <div id="product-pricing">
         <span id="product-price">{{product.currency}}{{product.price}}</span>
+        {{#if product.discount}}
         <div id="product-discount">{{product.discount}}%</div>
+        {{/if}}
     </div>
+    {{#if product.discount}}
     <div id="old-price">{{product.currency}}{{product.oldPrice}}</div>
+    {{/if}}
 
     <div id="product-purchase">
         <div id="quantity-selector">

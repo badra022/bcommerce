@@ -14,6 +14,7 @@ interface CartContext {
         itemQuantity: string,
         totalPrice: string
     }>;
+    totalPrice: string;
 }
 
 const transformStateToTemplateArguments = (cartItems: CartItem[]) : CartContext => {
@@ -24,7 +25,8 @@ const transformStateToTemplateArguments = (cartItems: CartItem[]) : CartContext 
             unitPrice: item.price.toFixed(2).toString() || 'Free',
             itemQuantity: item.quantity.toString() || '1',
             totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0'
-        })) || []
+        })) || [],
+        totalPrice: cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2).toString() || '0'
     }
 };
 

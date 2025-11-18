@@ -39,5 +39,8 @@
         <div id="empty-container">your cart is empty.</div>
         {{/if}}
     </div>
+    {{#if items.length }}
+    <div class="total-price"><span>{{totalPrice}}</span></div>
+    {{/if}}
     <button id="cart-checkout-button">Checkout</button>
 </div>
