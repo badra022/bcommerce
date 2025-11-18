@@ -302,7 +302,7 @@
 }
 
 .product-card-image > img {
-  @apply rounded-2xl ;
+  @apply rounded-2xl w-full h-64 object-contain;
 }
 
 .product-card {
@@ -310,7 +310,7 @@
 }
 
 .product-card-details {
-  @apply py-2 px-2;
+  @apply py-2 px-2 h-48 flex flex-col;
 }
 
 .product-seller {
@@ -318,7 +318,7 @@
 }
 
 .product-card .product-pricing {
-  @apply flex w-full items-center;
+  @apply flex w-full items-center mt-auto;
 }
 
 .product-card .product-name {
@@ -335,4 +335,12 @@
 
 .product-card .old-price {
   @apply text-neutral-dark-grayish-blue font-primary-bold font-bold line-through decoration-neutral-dark-grayish-blue/50;
+}
+
+.total-price {
+  @apply flex mx-5 border-t-2 w-60 h-10 border-neutral-light-grayish-blue justify-end items-center;
+}
+
+.total-price > span {
+  @apply inline-block text-xl font-primary-bold text-center;
 }

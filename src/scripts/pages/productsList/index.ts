@@ -3,43 +3,26 @@ import { router } from "../../index.js";
 
 // @ts-ignore: allow importing handlebars template without type declarations
 import cardsTemplate from '../../../views/productCards.hbs';
+import { productsListViewDto } from "../../types/productDto.js";
 
-interface productCardsContext {
-    // Define the context properties needed for the products list component
-    products: Array<{
-        seller: string, 
-        name: string,
-        price: number,
-        currency: string,
-        discount: number,
-        oldPrice: number,
-        imageSrc: string,
-    }>
-}
+type productCardsContext = productsListViewDto;
 
 const transformStateToTemplateArguments = (productsListComponent: ProductsList) : productCardsContext => {
-    return {
-        products: productsListComponent.products?.map(product => {
-            return {
-                ...product,
-                oldPrice: product.price / (1 - product.discount / 100),
-                imageSrc: product.images[0].image
-            }
-        })
-    }
+    // curerntly no transformation needed for this component state to fit the template context
+    return productsListComponent.products;
 }
 
 export default class ProductsList extends Base<productCardsContext>{
-    constructor(private _products: Array<any>) {
+    constructor(private _products: productsListViewDto) {
         super(cardsTemplate, "products-list-container");
         this.render(transformStateToTemplateArguments(this));
     }
 
-    get products() : Array<any> {
+    get products() : productsListViewDto {
         return this._products;
     }
 
-    public mount(products: Array<any>): void {
+    public mount(products: productsListViewDto): void {
         this._products = products;
         this.render(transformStateToTemplateArguments(this));
         this._hostElement.classList.remove('hide');
