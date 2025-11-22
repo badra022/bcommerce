@@ -108,7 +108,7 @@
 }
 
 #navbar-logo {
-  @apply h-4 object-cover pe-5;
+  @apply h-4 object-cover pe-5 cursor-pointer;
 }
 
 #nav-menu-button {

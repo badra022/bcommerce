@@ -3,7 +3,8 @@ export interface CartItem {
     desc?: string,
     price?: number,
     quantity?: number,
-    discount?: number
+    discount?: number,
+    thumbnail?: string
 }
 
 interface CartRules {
@@ -15,7 +16,7 @@ interface CartRules {
     allowDiscounts: boolean
 }
 
-type actionType = 'add' | 'remove' | 'alter'
+type actionType = 'add' | 'remove' | 'alter' | 'clear';
 
 type Action = {
     type: actionType,
@@ -57,6 +58,9 @@ export default function cartReducer (state: CartItem[] = [], action: Action) : C
                 return state;
             }
             return state.filter(item => !(item.title.trim().toLowerCase() === action.data!.title.trim().toLowerCase()));
+        }
+        case 'clear': {
+            return [];
         }
         default:
             console.warn(`Unknown action type: ${action.type}. Returning current state.`);

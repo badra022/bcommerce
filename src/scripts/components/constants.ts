@@ -1,4 +1,4 @@
-export const navList = ['Collections', 'Men', 'Women', 'About', 'Contact'];
+export const navList = ['All', 'Men', 'Women', 'About', 'Contact'];
 
 export const products = [
     {

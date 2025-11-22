@@ -55,9 +55,11 @@ const transformStateToTemplateArguments = ( productComponent: Product) : product
 export default class Product extends Base<productContext>{
     private _currentQuantity: number = 0;
     private _focusedImageIndex: number = 0;
+    private _quantityElement: HTMLElement;
     constructor(private _product: productViewDto) {
         super(productTemplate, "product");
         this.render(transformStateToTemplateArguments(this));
+        this._quantityElement = document.querySelector('#selected-quantity')!;
     }
 
     public mount(product: productViewDto): void {
@@ -66,6 +68,7 @@ export default class Product extends Base<productContext>{
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
         this._hostElement.classList.remove('hide');
+        this._quantityElement = document.querySelector('#selected-quantity')!;
     }
 
     public unmount(): void {
@@ -117,8 +120,7 @@ export default class Product extends Base<productContext>{
     }
 
     private _updateQuantityValue(): void {
-        const quantityElement : HTMLElement = document.querySelector('#selected-quantity')!;
-        quantityElement.textContent = this.quantity.toString();
+        this._quantityElement.textContent = this.quantity.toString();
     }
 
     public addToCart(): void {
@@ -129,7 +131,8 @@ export default class Product extends Base<productContext>{
                 desc: this.product.description,
                 price: this.product.price,
                 quantity: this.quantity,
-                discount: this.product.discount
+                discount: this.product.discount,
+                thumbnail: this.product.images[this.focusedImageIndex].thumbnail,
             }
         })
 

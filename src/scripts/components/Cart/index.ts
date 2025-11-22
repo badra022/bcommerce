@@ -8,6 +8,7 @@ import cartTemplate from '../../../views/cart.hbs';
 interface CartContext {
     // Define the context properties needed for the Cart component
     cartItemCount: number;
+    isOpen: boolean;
     items: Array<{
         itemName: string,
         unitPrice: string,
@@ -17,14 +18,16 @@ interface CartContext {
     totalPrice: string;
 }
 
-const transformStateToTemplateArguments = (cartItems: CartItem[]) : CartContext => {
+const transformStateToTemplateArguments = (cartItems: CartItem[], isOpen: boolean) : CartContext => {
     return {
         cartItemCount: cartItems?.length || 0,
+        isOpen: isOpen,
         items: cartItems?.map(item => ({
             itemName: item.title || "Unnamed Item",
             unitPrice: item.price.toFixed(2).toString() || 'Free',
             itemQuantity: item.quantity.toString() || '1',
-            totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0'
+            totalPrice: (item.price * item.quantity).toFixed(2).toString() || '0',
+            thumbnail: item.thumbnail || 'static/notFound.jpg'
         })) || [],
         totalPrice: cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2).toString() || '0'
     }
@@ -32,16 +35,9 @@ const transformStateToTemplateArguments = (cartItems: CartItem[]) : CartContext 
 
 
 export default class Cart extends Base<CartContext>{
+    private _isOpen: boolean = false;
     constructor() {
-        super(cartTemplate, "cart-container", transformStateToTemplateArguments(cart.getState()));
-        if(cart.getState()?.items?.length) {
-           this._hostElement.querySelector('#empty-container')?.classList.add('hide');
-        } else {
-            this._hostElement.querySelector('#empty-container')?.classList.remove('hide');
-        }
-
-        // initially cart itself is closed/hidden
-        this._hostElement.querySelector('#cart').classList.add('hide');
+        super(cartTemplate, "cart-container", transformStateToTemplateArguments(cart.getState(), false));
     }
 
     public configure(): void {
@@ -50,22 +46,32 @@ export default class Cart extends Base<CartContext>{
     });
         document.querySelector('#cart-checkout-button').addEventListener('click', this.checkout.bind(this));
         cart.subscribe(this.addItem.bind(this))
-        document.querySelector('#cart-button-container').addEventListener('click', this.toggleCart.bind(this));
+        document.querySelector('#cart-button-container').addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.toggleCart();
+        });
+        document.addEventListener('click', (event) => {
+            const targetElement = event.target as HTMLElement;
+            if(targetElement.closest('#cart-container')) {
+                event.stopPropagation();
+            } else {
+                this._isOpen = false;
+                this.render(transformStateToTemplateArguments(cart.getState(), this._isOpen));
+            }
+        })
     }
 
     public addItem(action): void {
         if(action.type !== 'add') return;
+        this._isOpen = true;
         // Re-render the cart with updated state
-        this.render(transformStateToTemplateArguments(cart.getState()));
+        this.render(transformStateToTemplateArguments(cart.getState(), this._isOpen));
     }
 
     public toggleCart(): void {
-        const cartElement : HTMLElement = this._hostElement.querySelector('#cart') as HTMLElement;
-        if(cartElement.classList.contains('hide')) {
-            cartElement.classList.remove('hide');
-        } else {
-            cartElement.classList.add('hide');
-        }
+        this._isOpen = !(this._isOpen);
+        console.log("Toggling cart. New state:", this._isOpen);
+        this.render(transformStateToTemplateArguments(cart.getState(), this._isOpen));
     }
 
     public deleteItem(event: Event): void {
@@ -78,11 +84,12 @@ export default class Cart extends Base<CartContext>{
             }
         });
         // Re-render the cart with updated state
-        this.render(transformStateToTemplateArguments(cart.getState()));
+        this.render(transformStateToTemplateArguments(cart.getState(), this._isOpen));
     }
 
     public checkout(): void {
         // Implement checkout logic here
-        console.log("Checkout initiated: ", cart.getState());
+        cart.dispatch({ type: 'clear' });
+        this.render(transformStateToTemplateArguments(cart.getState() , this._isOpen));
     }
 }
