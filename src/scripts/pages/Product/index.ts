@@ -132,7 +132,7 @@ export default class Product extends Base<productContext>{
                 price: this.product.price,
                 quantity: this.quantity,
                 discount: this.product.discount,
-                thumbnail: this.product.images[this.focusedImageIndex].thumbnail,
+                thumbnail: this.product.images[this.focusedImageIndex].thumbnail
             }
         })
 
