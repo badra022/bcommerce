@@ -30,6 +30,7 @@ export default class Product extends Base {
         this._currentQuantity = 0;
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
+        this._quantityElement = document.querySelector('#selected-quantity');
     }
     mount(product) {
         this._product = product;
@@ -37,6 +38,7 @@ export default class Product extends Base {
         this._focusedImageIndex = 0;
         this.render(transformStateToTemplateArguments(this));
         this._hostElement.classList.remove('hide');
+        this._quantityElement = document.querySelector('#selected-quantity');
     }
     unmount() {
         this._hostElement.classList.add('hide');
@@ -76,8 +78,7 @@ export default class Product extends Base {
         this._updateQuantityValue();
     }
     _updateQuantityValue() {
-        const quantityElement = document.querySelector('#selected-quantity');
-        quantityElement.textContent = this.quantity.toString();
+        this._quantityElement.textContent = this.quantity.toString();
     }
     addToCart() {
         cart.dispatch({
@@ -87,7 +88,8 @@ export default class Product extends Base {
                 desc: this.product.description,
                 price: this.product.price,
                 quantity: this.quantity,
-                discount: this.product.discount
+                discount: this.product.discount,
+                thumbnail: this.product.images[this.focusedImageIndex].thumbnail
             }
         });
         this.quantity = 0;

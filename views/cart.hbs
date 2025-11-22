@@ -4,15 +4,15 @@
         <span id="cart-count">{{cartItemCount}}</span>
     {{/if}}
 </div>
-<div id="cart">
+<div id="cart" class="{{#unless isOpen}}hide{{/unless}}">
     <div id="cart-header">Cart</div>
     <div class="cart-items">
         {{#if items.length}}
         {{#each items}}
         <div class="cart-item-container" tabindex="0">
             <img class="cart-item-thumbnail"
-                src="static/image-product-1-thumbnail.jpg"
-                alt="item image">
+                src="{{this.thumbnail}}"
+                alt="{{this.itemName}} thumbnail">
             <div class="cart-item-details">
                 <div class="cart-item-description">{{this.itemName}}</div>
                 <div class="price-and-quantity">

@@ -25,6 +25,9 @@ export default function cartReducer(state = [], action) {
             }
             return state.filter(item => !(item.title.trim().toLowerCase() === action.data.title.trim().toLowerCase()));
         }
+        case 'clear': {
+            return [];
+        }
         default:
             console.warn(`Unknown action type: ${action.type}. Returning current state.`);
             return state;
